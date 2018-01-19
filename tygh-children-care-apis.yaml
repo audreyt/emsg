@@ -1,0 +1,110 @@
+openapi: 3.0.0
+servers:
+  - url: 'https://mydata.tygh.mohw.gov.tw/tygh-children-care/dp/'
+info:
+  version: 1.0.0
+  title: 桃園署立醫院未滿7歲子女疫苗注射記錄
+  description: 桃園署立醫院提供訂閱人未滿7歲子女疫苗注射記錄服務API規格
+paths:
+  /tychSP_chBook:
+    get:
+      summary: 查詢桃園署立醫院未滿7歲子女疫苗注射記錄
+      description: 查詢桃園署立醫院未滿7歲子女疫苗注射記錄包含醫療紀錄及自行填寫
+      parameters:
+        - name: accessToken
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    cid:
+                      type: string
+                      description: 小孩鍵值
+                    pid:
+                      type: string
+                      description: 小孩身份證字號
+                    parentPid:
+                      type: string
+                      description: 母親或父親身份證字號
+                    name:
+                      type: string
+                      description: 小孩名稱
+                    gender:
+                      type: string
+                      description: 小孩性別F|M
+                    birthday:
+                      type: string
+                      description: 小孩生日YYYY/MM/DD
+                    ctime:
+                      type: string
+                      description: '資料建立時間YYYY/MM/DD HH:MM:DD'
+                    vaccinationRecordList:
+                      description: 疫苗注射紀錄
+                      type: array
+                      items:
+                        properties:
+                          vrid:
+                            type: string
+                            description: 疫苗注射紀錄鍵值
+                          suitableAge:
+                            type: string
+                            description: 適合注射年齡區間
+                          vaccineSpecies:
+                            type: string
+                            description: 疫苗名稱
+                          vaccineCount:
+                            type: string
+                            description: 疫苗第幾劑
+                          vaccinationDate:
+                            type: string
+                            description: 疫苗注射日期YYYY/MM/DD
+                          ctime:
+                            type: string
+                            description: 資料填寫日期YYYY/MM/DD
+                          unit:
+                            type: string
+                            description: 疫苗注射院所
+                          canChange:
+                            type: string
+                            description: 該筆資料是否為自行填寫
+    post:
+      summary: 查詢桃園署立醫院未滿7歲子女疫苗注射記錄
+      description: 查詢桃園署立醫院未滿7歲子女疫苗注射記錄包含醫療紀錄及自行填寫
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: 疫苗注射紀錄
+              type: object
+              items:
+                properties:
+                  vrid:
+                    type: string
+                    description: 疫苗注射紀錄鍵值
+                  suitableAge:
+                    type: string
+                    description: 適合注射年齡區間
+                  vaccineSpecies:
+                    type: string
+                    description: 疫苗名稱
+                  vaccineCount:
+                    type: string
+                    description: 疫苗第幾劑
+                  vaccinationDate:
+                    type: string
+                    description: 疫苗注射日期YYYY/MM/DD
+                  unit:
+                    type: string
+                    description: 疫苗注射院所
+        required: true
